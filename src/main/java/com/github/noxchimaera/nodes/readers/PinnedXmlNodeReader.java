@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.attributes.readers;
+package com.github.noxchimaera.nodes.readers;
 
 import org.w3c.dom.Element;
 
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 /**
  * @author Max Balushkin
  */
-public class SimpleXmlAttributeReader<TAttr> implements XmlAttributeReader<TAttr> {
+public class PinnedXmlNodeReader<TParent, TNode> {
 
-    private String name;
-    private Function<String, TAttr> mapper;
+    private XmlNodeReader<TNode> reader;
+    private BiConsumer<TParent, TNode> setter;
 
-    public SimpleXmlAttributeReader(String name, Function<String, TAttr> mapper) {
-        this.name = name;
-        this.mapper = mapper;
+    public PinnedXmlNodeReader(XmlNodeReader<TNode> reader, BiConsumer<TParent, TNode> setter) {
+        this.reader = reader;
+        this.setter = setter;
     }
 
-    @Override
-    public TAttr read(Element xmlElement) {
-        return mapper.apply(xmlElement.getAttribute(name));
+    public void read(Element xmlElement, TParent parent) {
+        TNode child = reader.read(xmlElement, ReadStrategy.Auto);
+        setter.accept(parent, child);
     }
 
 }

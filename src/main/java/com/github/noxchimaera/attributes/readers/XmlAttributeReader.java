@@ -18,11 +18,17 @@ package com.github.noxchimaera.attributes.readers;
 
 import org.w3c.dom.Element;
 
+import java.util.function.BiConsumer;
+
 /**
  * @author Max Balushkin
  */
 public interface XmlAttributeReader<TAttr> {
 
     TAttr read(Element xmlElement);
+
+    default <TNode> PinnedXmlAttributeReader<TNode, TAttr> pinned(BiConsumer<TNode, TAttr> setter) {
+        return new PinnedXmlAttributeReader<>(this, setter);
+    }
 
 }

@@ -14,29 +14,33 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.attributes.readers;
+package com.github.noxchimaera.nodes.readers;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 /**
  * @author Max Balushkin
  */
-public class SimpleXmlAttributeReader<TAttr> implements XmlAttributeReader<TAttr> {
+@FunctionalInterface
+public interface ReadStrategy {
 
-    private String name;
-    private Function<String, TAttr> mapper;
+    Element getElement(String tag, Element xmlElement);
 
-    public SimpleXmlAttributeReader(String name, Function<String, TAttr> mapper) {
-        this.name = name;
-        this.mapper = mapper;
-    }
+    ReadStrategy Self = (tag, xmlElement) -> {
+        return xmlElement;
+    };
 
-    @Override
-    public TAttr read(Element xmlElement) {
-        return mapper.apply(xmlElement.getAttribute(name));
-    }
+    ReadStrategy Auto = (tag, xmlElement) -> {
+        NodeList xmlChildren = xmlElement.getChildNodes();
+        final int n = xmlChildren.getLength();
+        for (int i = 0; i < n; ++i) {
+            if (xmlChildren.item(i).getNodeName().equals(tag)) {
+                return (Element)xmlChildren.item(i);
+            }
+        }
+        return null;
+    };
 
 }

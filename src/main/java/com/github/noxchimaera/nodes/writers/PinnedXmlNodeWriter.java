@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.attributes.readers;
+package com.github.noxchimaera.nodes.writers;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
  * @author Max Balushkin
  */
-public class SimpleXmlAttributeReader<TAttr> implements XmlAttributeReader<TAttr> {
+public class PinnedXmlNodeWriter<TParent, TNode> {
 
-    private String name;
-    private Function<String, TAttr> mapper;
+    private XmlNodeWriter<TNode> writer;
+    private Function<TParent, TNode> getter;
 
-    public SimpleXmlAttributeReader(String name, Function<String, TAttr> mapper) {
-        this.name = name;
-        this.mapper = mapper;
+    public PinnedXmlNodeWriter(XmlNodeWriter<TNode> writer, Function<TParent, TNode> getter) {
+        this.writer = writer;
+        this.getter = getter;
     }
 
-    @Override
-    public TAttr read(Element xmlElement) {
-        return mapper.apply(xmlElement.getAttribute(name));
+    public void write(Document doc, Element xmlElement, TParent parent) {
+        TNode child = getter.apply(parent);
+        writer.write(doc, xmlElement, child);
     }
 
 }

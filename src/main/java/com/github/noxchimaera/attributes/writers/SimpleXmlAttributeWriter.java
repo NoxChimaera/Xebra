@@ -38,8 +38,4 @@ public class SimpleXmlAttributeWriter<TAttr> implements XmlAttributeWriter<TAttr
         xmlElement.setAttribute(name, mapper.apply(value));
     }
 
-    public <TObject> PinnedXmlAttributeWriter<TObject, TAttr> pinned(Function<TObject, TAttr> getter) {
-        return new PinnedXmlAttributeWriter<TObject, TAttr>(this, getter);
-    }
-
 }

@@ -18,11 +18,17 @@ package com.github.noxchimaera.attributes.writers;
 
 import org.w3c.dom.Element;
 
+import java.util.function.Function;
+
 /**
  * @author Max Balushkin
  */
 public interface XmlAttributeWriter<TAttr> {
 
     void write(Element xmlElement, TAttr value);
+
+    default <TObject> PinnedXmlAttributeWriter<TObject, TAttr> pinned(Function<TObject, TAttr> getter) {
+        return new PinnedXmlAttributeWriter<>(this, getter);
+    }
 
 }
