@@ -21,12 +21,27 @@ import org.w3c.dom.Element;
 import java.util.function.Function;
 
 /**
+ * Writes XML node attribute.
+ *
  * @author Max Balushkin
  */
 public interface XmlAttributeWriter<TAttr> {
 
+    /**
+     * Writes XML node attribute.
+     *
+     * @param xmlElement XML node
+     * @param value      attribute value
+     */
     void write(Element xmlElement, TAttr value);
 
+    /**
+     * Creates pinned attribute writer.
+     *
+     * @param getter    gets attribute value from object
+     * @param <TObject> object type
+     * @return pinned attribute writer
+     */
     default <TObject> PinnedXmlAttributeWriter<TObject, TAttr> pinned(Function<TObject, TAttr> getter) {
         return new PinnedXmlAttributeWriter<>(this, getter);
     }

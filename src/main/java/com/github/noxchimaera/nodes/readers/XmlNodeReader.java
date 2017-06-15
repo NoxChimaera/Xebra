@@ -21,13 +21,36 @@ import org.w3c.dom.Element;
 import java.util.function.BiConsumer;
 
 /**
+ * Reads XML node.
+ *
+ * @param <TNode> object type
  * @author Max Balushkin
  */
 public interface XmlNodeReader<TNode> {
 
+    /**
+     * Returns XML node tag.
+     *
+     * @return XML node tag
+     */
     String tag();
+
+    /**
+     * Reads XML node.
+     *
+     * @param xmlElement XML node
+     * @param strategy   read strategy
+     * @return parsed object
+     */
     TNode read(Element xmlElement, ReadStrategy strategy);
 
+    /**
+     * Creates pinned XML node reader.
+     *
+     * @param setter    sets child of object
+     * @param <TParent> object type
+     * @return pinned node reader
+     */
     default <TParent> PinnedXmlNodeReader<TParent, TNode> pinned(BiConsumer<TParent, TNode> setter) {
         return new PinnedXmlNodeReader<>(this, setter);
     }

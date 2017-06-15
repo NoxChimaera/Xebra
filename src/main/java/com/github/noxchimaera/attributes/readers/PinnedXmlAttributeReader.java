@@ -16,14 +16,16 @@
 
 package com.github.noxchimaera.attributes.readers;
 
-import com.github.noxchimaera.attributes.writers.SimpleXmlAttributeWriter;
-import com.github.noxchimaera.attributes.writers.XmlAttributeWriter;
 import org.w3c.dom.Element;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
+ * XML attribute reader pinned to object.
+ *
+ * @param <TObject> object type
+ * @param <TAttr>   attribute type
  * @author Max Balushkin
  */
 public class PinnedXmlAttributeReader<TObject, TAttr> {
@@ -31,20 +33,44 @@ public class PinnedXmlAttributeReader<TObject, TAttr> {
     private XmlAttributeReader<TAttr> reader;
     private BiConsumer<TObject, TAttr> setter;
 
+    /**
+     * Create new instance of pinned XML attribute reader.
+     *
+     * @param name   attribute name
+     * @param mapper converts from String to specified type
+     * @param setter sets attribute of object
+     */
     public PinnedXmlAttributeReader(String name, Function<String, TAttr> mapper, BiConsumer<TObject, TAttr> setter) {
         this(new SimpleXmlAttributeReader<>(name, mapper), setter);
     }
 
+    /**
+     * Creates new instance of pinned XML attribute reader.
+     *
+     * @param reader free attribute reader
+     * @param setter sets attribute of object
+     */
     public PinnedXmlAttributeReader(XmlAttributeReader<TAttr> reader, BiConsumer<TObject, TAttr> setter) {
         this.reader = reader;
         this.setter = setter;
     }
 
+    /**
+     * Reads attribute of specified XML node.
+     *
+     * @param xmlElement XML node
+     * @param target     object
+     */
     public void read(Element xmlElement, TObject target) {
         TAttr attr = reader.read(xmlElement);
         setter.accept(target, attr);
     }
 
+    /**
+     * Returns unpinned attribute reader.
+     *
+     * @return free attribute reader
+     */
     public XmlAttributeReader<TAttr> unpinned() {
         return reader;
     }

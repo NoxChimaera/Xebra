@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
+ * Writes object to XML node.
+ * Default implementation of {@link XmlNodeWriter}.
+ *
  * @author Max Balushkin
  */
 public class SimpleXmlNodeWriter<TNode> implements XmlNodeWriter<TNode> {
@@ -34,28 +37,63 @@ public class SimpleXmlNodeWriter<TNode> implements XmlNodeWriter<TNode> {
     private List<PinnedXmlAttributeWriter<TNode, ?>> attributes;
     private List<PinnedXmlNodeWriter<TNode, ?>> children;
 
+    /**
+     * Creates new instance of XML node writer.
+     *
+     * @param tag XML node tag
+     */
     public SimpleXmlNodeWriter(String tag) {
         this.tag = tag;
         attributes = new ArrayList<>();
         children = new ArrayList<>();
     }
 
+    /**
+     * Composes this writer with specified attribute writer.
+     *
+     * @param writer  attribute writer
+     * @param getter  gets attribute value from object
+     * @param <TAttr> attribute type
+     * @return self
+     */
     public <TAttr>
     SimpleXmlNodeWriter<TNode> attribute(XmlAttributeWriter<TAttr> writer, Function<TNode, TAttr> getter) {
         return attribute(writer.pinned(getter));
     }
 
+    /**
+     * Composes this writer with specified attribute writer.
+     *
+     * @param writer  pinned attribute writer
+     * @param <TAttr> attribute type
+     * @return self
+     */
     public <TAttr>
     SimpleXmlNodeWriter<TNode> attribute(PinnedXmlAttributeWriter<TNode, TAttr> writer) {
         attributes.add(writer);
         return this;
     }
 
+    /**
+     * Composes this node writer with specified node writer (as child).
+     *
+     * @param writer   node writer
+     * @param getter   gets child object from object
+     * @param <TChild> child object type
+     * @return self
+     */
     public <TChild>
     SimpleXmlNodeWriter<TNode> child(XmlNodeWriter<TChild> writer, Function<TNode, TChild> getter) {
         return child(writer.pinned(getter));
     }
 
+    /**
+     * Composes this node writer with specified node writer (as child).
+     *
+     * @param writer   pinned node writer
+     * @param <TChild> child object type
+     * @return self
+     */
     public <TChild>
     SimpleXmlNodeWriter<TNode> child(PinnedXmlNodeWriter<TNode, TChild> writer) {
         children.add(writer);

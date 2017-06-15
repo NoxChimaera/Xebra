@@ -18,10 +18,13 @@ package com.github.noxchimaera.attributes.readers;
 
 import org.w3c.dom.Element;
 
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
+ * Reads XML node attribute.
+ * Default implementation of {@link XmlAttributeReader}.
+ *
+ * @param <TAttr> attribute Java type
  * @author Max Balushkin
  */
 public class SimpleXmlAttributeReader<TAttr> implements XmlAttributeReader<TAttr> {
@@ -29,6 +32,12 @@ public class SimpleXmlAttributeReader<TAttr> implements XmlAttributeReader<TAttr
     private String name;
     private Function<String, TAttr> mapper;
 
+    /**
+     * Creates new instance of XML attribute reader.
+     *
+     * @param name   attribute name
+     * @param mapper converts from String to specified type
+     */
     public SimpleXmlAttributeReader(String name, Function<String, TAttr> mapper) {
         this.name = name;
         this.mapper = mapper;

@@ -21,17 +21,32 @@ import org.w3c.dom.NodeList;
 
 
 /**
+ * Specifies read strategy. E.g. first element in children list, sequential read, etc.
+ *
  * @author Max Balushkin
  */
 @FunctionalInterface
 public interface ReadStrategy {
 
+    /**
+     * Returns current XML node.
+     *
+     * @param tag        node tag
+     * @param xmlElement parent XML node
+     * @return current XML node
+     */
     Element getElement(String tag, Element xmlElement);
 
+    /**
+     * Returns argument node.
+     */
     ReadStrategy Self = (tag, xmlElement) -> {
         return xmlElement;
     };
 
+    /**
+     * Returns first node in child list or null if node with such tag doesn't exists.
+     */
     ReadStrategy Auto = (tag, xmlElement) -> {
         NodeList xmlChildren = xmlElement.getChildNodes();
         final int n = xmlChildren.getLength();

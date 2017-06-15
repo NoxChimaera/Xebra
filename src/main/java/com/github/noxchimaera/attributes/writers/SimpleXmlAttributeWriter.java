@@ -21,6 +21,10 @@ import org.w3c.dom.Element;
 import java.util.function.Function;
 
 /**
+ * Writes XML node attribute.
+ * Default implementation of {@link XmlAttributeWriter}.
+ *
+ * @param <TAttr> attribute Java type
  * @author Max Balushkin
  */
 public class SimpleXmlAttributeWriter<TAttr> implements XmlAttributeWriter<TAttr> {
@@ -28,6 +32,12 @@ public class SimpleXmlAttributeWriter<TAttr> implements XmlAttributeWriter<TAttr
     private String name;
     private Function<TAttr, String> mapper;
 
+    /**
+     * Creates new instance of XML attribute writer.
+     *
+     * @param name   attribute name
+     * @param mapper converts attribute value to String
+     */
     public SimpleXmlAttributeWriter(String name, Function<TAttr, String> mapper) {
         this.name = name;
         this.mapper = mapper;

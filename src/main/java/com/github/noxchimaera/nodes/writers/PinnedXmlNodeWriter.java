@@ -22,6 +22,8 @@ import org.w3c.dom.Element;
 import java.util.function.Function;
 
 /**
+ * Pinned XML node writer.
+ *
  * @author Max Balushkin
  */
 public class PinnedXmlNodeWriter<TParent, TNode> {
@@ -29,11 +31,24 @@ public class PinnedXmlNodeWriter<TParent, TNode> {
     private XmlNodeWriter<TNode> writer;
     private Function<TParent, TNode> getter;
 
+    /**
+     * Creates new instance of pinned XML node writer.
+     *
+     * @param writer free node writer
+     * @param getter gets child object from source
+     */
     public PinnedXmlNodeWriter(XmlNodeWriter<TNode> writer, Function<TParent, TNode> getter) {
         this.writer = writer;
         this.getter = getter;
     }
 
+    /**
+     * Writes object to XML node.
+     *
+     * @param doc        XML document
+     * @param xmlElement XML node
+     * @param parent     parent object
+     */
     public void write(Document doc, Element xmlElement, TParent parent) {
         TNode child = getter.apply(parent);
         writer.write(doc, xmlElement, child);

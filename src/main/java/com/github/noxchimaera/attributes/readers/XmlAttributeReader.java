@@ -21,12 +21,28 @@ import org.w3c.dom.Element;
 import java.util.function.BiConsumer;
 
 /**
+ * Reads XML node attribute.
+ *
+ * @param <TAttr> attribute Java type
  * @author Max Balushkin
  */
 public interface XmlAttributeReader<TAttr> {
 
+    /**
+     * Reads attribute of specified XML node.
+     *
+     * @param xmlElement XML node
+     * @return attribute value
+     */
     TAttr read(Element xmlElement);
 
+    /**
+     * Creates pinned attribute reader.
+     *
+     * @param setter  sets attribute of object
+     * @param <TNode> object type
+     * @return pinned read
+     */
     default <TNode> PinnedXmlAttributeReader<TNode, TAttr> pinned(BiConsumer<TNode, TAttr> setter) {
         return new PinnedXmlAttributeReader<>(this, setter);
     }

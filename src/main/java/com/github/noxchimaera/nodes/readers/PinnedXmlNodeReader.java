@@ -21,6 +21,8 @@ import org.w3c.dom.Element;
 import java.util.function.BiConsumer;
 
 /**
+ * Pinned XML node reader.
+ *
  * @author Max Balushkin
  */
 public class PinnedXmlNodeReader<TParent, TNode> {
@@ -28,11 +30,23 @@ public class PinnedXmlNodeReader<TParent, TNode> {
     private XmlNodeReader<TNode> reader;
     private BiConsumer<TParent, TNode> setter;
 
+    /**
+     * Creates new instance of pinned XML node reader.
+     *
+     * @param reader free node reader
+     * @param setter sets value of object
+     */
     public PinnedXmlNodeReader(XmlNodeReader<TNode> reader, BiConsumer<TParent, TNode> setter) {
         this.reader = reader;
         this.setter = setter;
     }
 
+    /**
+     * Reads object from XML node.
+     *
+     * @param xmlElement XML node
+     * @param parent     parent object
+     */
     public void read(Element xmlElement, TParent parent) {
         TNode child = reader.read(xmlElement, ReadStrategy.Auto);
         setter.accept(parent, child);

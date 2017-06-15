@@ -18,13 +18,8 @@ package com.github.noxchimaera.readers;
 
 import com.github.noxchimaera.Occupation;
 import com.github.noxchimaera.Person;
-import com.github.noxchimaera.attributes.readers.PinnedXmlAttributeReader;
-import com.github.noxchimaera.attributes.readers.SimpleXmlAttributeReader;
-import com.github.noxchimaera.attributes.writers.PinnedXmlAttributeWriter;
-import com.github.noxchimaera.attributes.writers.SimpleXmlAttributeWriter;
 import com.github.noxchimaera.nodes.readers.ReadStrategy;
 import com.github.noxchimaera.nodes.readers.SimpleXmlNodeReader;
-import com.github.noxchimaera.nodes.writers.PinnedXmlNodeWriter;
 import com.github.noxchimaera.nodes.writers.SimpleXmlNodeWriter;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -33,7 +28,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Max Balushkin

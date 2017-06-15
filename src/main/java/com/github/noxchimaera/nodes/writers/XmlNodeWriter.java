@@ -22,13 +22,35 @@ import org.w3c.dom.Element;
 import java.util.function.Function;
 
 /**
+ * Writes object to XML node.
+ *
  * @author Max Balushkin
  */
 public interface XmlNodeWriter<TNode> {
 
+    /**
+     * Returns XML node tag.
+     *
+     * @return XML node tag
+     */
     String tag();
+
+    /**
+     * Writes object to XML node.
+     *
+     * @param doc        XML document
+     * @param xmlElement XML node
+     * @param node       object
+     */
     void write(Document doc, Element xmlElement, TNode node);
 
+    /**
+     * Creates pinned node writer.
+     *
+     * @param getter    gets value from parent object
+     * @param <TParent> parent object type
+     * @return pinned node writer
+     */
     default <TParent> PinnedXmlNodeWriter<TParent, TNode> pinned(Function<TParent, TNode> getter) {
         return new PinnedXmlNodeWriter<>(this, getter);
     }
