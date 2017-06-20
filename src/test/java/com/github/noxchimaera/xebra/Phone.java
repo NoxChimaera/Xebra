@@ -16,15 +16,11 @@
 
 package com.github.noxchimaera.xebra;
 
-import java.util.List;
-
 /**
  * @author Max Balushkin
  */
-public class Person {
+public class Phone {
 
-    public String Name;
-    public Occupation Occupation;
-    public List<Phone> Phones;
+    public String number;
 
 }

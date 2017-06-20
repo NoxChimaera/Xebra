@@ -14,17 +14,33 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.xebra;
+package com.github.noxchimaera.xebra.nodes.writers;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.util.List;
 
 /**
  * @author Max Balushkin
  */
-public class Person {
+public class ListXmlNodeWriter<TNode> implements XmlNodeWriter<List<TNode>> {
 
-    public String Name;
-    public Occupation Occupation;
-    public List<Phone> Phones;
+    private XmlNodeWriter<TNode> writer;
+
+    public ListXmlNodeWriter(XmlNodeWriter<TNode> writer) {
+        this.writer = writer;
+    }
+
+    @Override public String tag() {
+        return writer.tag();
+    }
+
+    @Override
+    public void write(Document doc, Element xmlElement, List<TNode> nodes) {
+        for (TNode node : nodes) {
+            writer.write(doc, xmlElement, node);
+        }
+    }
 
 }

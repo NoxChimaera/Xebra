@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.xebra.readers;
+package com.github.noxchimaera.xebra.nodes;
 import com.github.noxchimaera.xebra.Occupation;
 import com.github.noxchimaera.xebra.Person;
 import com.github.noxchimaera.xebra.nodes.readers.ReadStrategy;
