@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.nodes.readers;
+package com.github.noxchimaera.xebra.nodes.writers;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 /**
- * Reads XML node.
+ * Writes object to XML node.
  *
- * @param <TNode> object type
  * @author Max Balushkin
  */
-public interface XmlNodeReader<TNode> {
+public interface XmlNodeWriter<TNode> {
 
     /**
      * Returns XML node tag.
@@ -36,23 +36,23 @@ public interface XmlNodeReader<TNode> {
     String tag();
 
     /**
-     * Reads XML node.
+     * Writes object to XML node.
      *
+     * @param doc        XML document
      * @param xmlElement XML node
-     * @param strategy   read strategy
-     * @return parsed object
+     * @param node       object
      */
-    TNode read(Element xmlElement, ReadStrategy strategy);
+    void write(Document doc, Element xmlElement, TNode node);
 
     /**
-     * Creates pinned XML node reader.
+     * Creates pinned node writer.
      *
-     * @param setter    sets child of object
-     * @param <TParent> object type
-     * @return pinned node reader
+     * @param getter    gets value from parent object
+     * @param <TParent> parent object type
+     * @return pinned node writer
      */
-    default <TParent> PinnedXmlNodeReader<TParent, TNode> pinned(BiConsumer<TParent, TNode> setter) {
-        return new PinnedXmlNodeReader<>(this, setter);
+    default <TParent> PinnedXmlNodeWriter<TParent, TNode> pinned(Function<TParent, TNode> getter) {
+        return new PinnedXmlNodeWriter<>(this, getter);
     }
 
 }

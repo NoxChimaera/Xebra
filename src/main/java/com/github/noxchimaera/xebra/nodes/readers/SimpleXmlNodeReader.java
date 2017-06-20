@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.nodes.readers;
+package com.github.noxchimaera.xebra.nodes.readers;
 
-import com.github.noxchimaera.attributes.readers.PinnedXmlAttributeReader;
-import com.github.noxchimaera.attributes.readers.XmlAttributeReader;
+import com.github.noxchimaera.xebra.attributes.readers.PinnedXmlAttributeReader;
+import com.github.noxchimaera.xebra.attributes.readers.XmlAttributeReader;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;

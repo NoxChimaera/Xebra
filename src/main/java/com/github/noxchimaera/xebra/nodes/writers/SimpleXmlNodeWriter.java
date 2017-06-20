@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.nodes.writers;
+package com.github.noxchimaera.xebra.nodes.writers;
 
-import com.github.noxchimaera.attributes.writers.PinnedXmlAttributeWriter;
-import com.github.noxchimaera.attributes.writers.XmlAttributeWriter;
+import com.github.noxchimaera.xebra.attributes.writers.PinnedXmlAttributeWriter;
+import com.github.noxchimaera.xebra.attributes.writers.XmlAttributeWriter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

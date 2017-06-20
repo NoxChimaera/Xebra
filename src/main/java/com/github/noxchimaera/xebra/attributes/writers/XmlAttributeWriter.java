@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.attributes.writers;
+package com.github.noxchimaera.xebra.attributes.writers;
 
 import org.w3c.dom.Element;
 

@@ -14,42 +14,45 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.nodes.readers;
+package com.github.noxchimaera.xebra.nodes.readers;
 
 import org.w3c.dom.Element;
 
 import java.util.function.BiConsumer;
 
 /**
- * Pinned XML node reader.
+ * Reads XML node.
  *
+ * @param <TNode> object type
  * @author Max Balushkin
  */
-public class PinnedXmlNodeReader<TParent, TNode> {
-
-    private XmlNodeReader<TNode> reader;
-    private BiConsumer<TParent, TNode> setter;
+public interface XmlNodeReader<TNode> {
 
     /**
-     * Creates new instance of pinned XML node reader.
+     * Returns XML node tag.
      *
-     * @param reader free node reader
-     * @param setter sets value of object
+     * @return XML node tag
      */
-    public PinnedXmlNodeReader(XmlNodeReader<TNode> reader, BiConsumer<TParent, TNode> setter) {
-        this.reader = reader;
-        this.setter = setter;
-    }
+    String tag();
 
     /**
-     * Reads object from XML node.
+     * Reads XML node.
      *
      * @param xmlElement XML node
-     * @param parent     parent object
+     * @param strategy   read strategy
+     * @return parsed object
      */
-    public void read(Element xmlElement, TParent parent) {
-        TNode child = reader.read(xmlElement, ReadStrategy.Auto);
-        setter.accept(parent, child);
+    TNode read(Element xmlElement, ReadStrategy strategy);
+
+    /**
+     * Creates pinned XML node reader.
+     *
+     * @param setter    sets child of object
+     * @param <TParent> object type
+     * @return pinned node reader
+     */
+    default <TParent> PinnedXmlNodeReader<TParent, TNode> pinned(BiConsumer<TParent, TNode> setter) {
+        return new PinnedXmlNodeReader<>(this, setter);
     }
 
 }

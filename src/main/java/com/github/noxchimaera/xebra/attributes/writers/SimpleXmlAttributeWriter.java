@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.attributes.readers;
+package com.github.noxchimaera.xebra.attributes.writers;
 
 import org.w3c.dom.Element;
 
 import java.util.function.Function;
 
 /**
- * Reads XML node attribute.
- * Default implementation of {@link XmlAttributeReader}.
+ * Writes XML node attribute.
+ * Default implementation of {@link XmlAttributeWriter}.
  *
  * @param <TAttr> attribute Java type
  * @author Max Balushkin
  */
-public class SimpleXmlAttributeReader<TAttr> implements XmlAttributeReader<TAttr> {
+public class SimpleXmlAttributeWriter<TAttr> implements XmlAttributeWriter<TAttr> {
 
     private String name;
-    private Function<String, TAttr> mapper;
+    private Function<TAttr, String> mapper;
 
     /**
-     * Creates new instance of XML attribute reader.
+     * Creates new instance of XML attribute writer.
      *
      * @param name   attribute name
-     * @param mapper converts from String to specified type
+     * @param mapper converts attribute value to String
      */
-    public SimpleXmlAttributeReader(String name, Function<String, TAttr> mapper) {
+    public SimpleXmlAttributeWriter(String name, Function<TAttr, String> mapper) {
         this.name = name;
         this.mapper = mapper;
     }
 
     @Override
-    public TAttr read(Element xmlElement) {
-        return mapper.apply(xmlElement.getAttribute(name));
+    public void write(Element xmlElement, TAttr value) {
+        xmlElement.setAttribute(name, mapper.apply(value));
     }
 
 }

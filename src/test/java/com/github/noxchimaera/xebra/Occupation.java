@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera;
+package com.github.noxchimaera.xebra;
 
 /**
  * @author Max Balushkin
  */
-public class Person {
+public class Occupation {
 
-    public String Name;
-    public Occupation Occupation;
+    public String Workplace;
+    public String Position;
 
 }

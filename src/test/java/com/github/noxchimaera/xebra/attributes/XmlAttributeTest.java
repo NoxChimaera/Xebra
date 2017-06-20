@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.attributes;
+package com.github.noxchimaera.xebra.attributes;
 
-import com.github.noxchimaera.Occupation;
-import com.github.noxchimaera.attributes.readers.PinnedXmlAttributeReader;
-import com.github.noxchimaera.attributes.readers.SimpleXmlAttributeReader;
-import com.github.noxchimaera.attributes.writers.PinnedXmlAttributeWriter;
-import com.github.noxchimaera.attributes.writers.SimpleXmlAttributeWriter;
+import com.github.noxchimaera.xebra.Occupation;
+import com.github.noxchimaera.xebra.attributes.readers.PinnedXmlAttributeReader;
+import com.github.noxchimaera.xebra.attributes.readers.SimpleXmlAttributeReader;
+import com.github.noxchimaera.xebra.attributes.writers.PinnedXmlAttributeWriter;
+import com.github.noxchimaera.xebra.attributes.writers.SimpleXmlAttributeWriter;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Max Balushkin

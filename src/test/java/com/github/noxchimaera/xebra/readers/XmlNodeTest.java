@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.readers;
+package com.github.noxchimaera.xebra.readers;
 
-import com.github.noxchimaera.Occupation;
-import com.github.noxchimaera.Person;
-import com.github.noxchimaera.nodes.readers.ReadStrategy;
-import com.github.noxchimaera.nodes.readers.SimpleXmlNodeReader;
-import com.github.noxchimaera.nodes.writers.SimpleXmlNodeWriter;
+import com.github.noxchimaera.xebra.Occupation;
+import com.github.noxchimaera.xebra.Person;
+import com.github.noxchimaera.xebra.nodes.readers.ReadStrategy;
+import com.github.noxchimaera.xebra.nodes.readers.SimpleXmlNodeReader;
+import com.github.noxchimaera.xebra.nodes.writers.SimpleXmlNodeWriter;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,7 +36,6 @@ import static org.junit.Assert.assertNotNull;
 public class XmlNodeTest {
 
     @Test public void test_xml_node() throws Exception {
-
         Occupation occupation = new Occupation();
         Person person = new Person();
         person.Occupation = occupation;

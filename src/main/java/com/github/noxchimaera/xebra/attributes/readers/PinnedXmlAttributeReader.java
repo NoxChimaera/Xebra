@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.noxchimaera.attributes.readers;
+package com.github.noxchimaera.xebra.attributes.readers;
 
 import org.w3c.dom.Element;
 
